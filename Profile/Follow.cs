@@ -13,23 +13,40 @@ namespace InstagramNavegador.Profile.Follow
 {
     public static class IFollow
     {
+        /// <summary>
+        /// Seguir um perfil do instagram
+        /// </summary>
+        /// <param name="username">Username do perfil</param>
+        /// <returns>
+        /// -1 - Pagina não carrega
+        /// 0 - Challenge
+        /// 1 - Sucesso
+        /// 2 - Confirmar Login
+        /// 3 - Ja segue o perfil
+        /// 4 - Block Temporario
+        /// 5 - ERRO AO SEGUIR
+        /// </returns>
         public static async Task<Result> FollowUser(this InstaNav insta, string username, bool first = true)
         {
             Result ret = new(0, "Default");
             try
             {
+                Console.WriteLine(1);
                 if (insta.Driver.Url != "https://www.instagram.com/")
                 {
                     insta.Driver.Navigate().GoToUrl("https://www.instagram.com/");
                 }
+                Console.WriteLine(2);
                 await Task.Delay(1547);
                 insta.Wait.Until(d => d.FindElement(By.CssSelector("input[type='text']")));
                 await Task.Delay(1253);
                 insta.Driver.FindElement(By.CssSelector("input[type='text']")).SendKeys(username);
                 await Task.Delay(854);
+                Console.WriteLine(3);
                 var w = new WebDriverWait(insta.Driver, TimeSpan.FromSeconds(10));
                 try
                 {
+                    Console.WriteLine(4);
                     w.Until(d => d.FindElement(By.XPath($"//div[text()='{username}']")));
                     insta.Driver.FindElement(By.XPath($"//div[text()='{username}']")).Click();
                     await Task.Delay(1345);
@@ -39,6 +56,7 @@ namespace InstagramNavegador.Profile.Follow
                     insta.Driver.Navigate().GoToUrl($"https://www.instagram.com/{username}/");
                     await Task.Delay(1248);
                 }
+                Console.WriteLine(5);
                 var waits = new List<IWait>
                 {
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = $"//h2[text()='{username}']" },
@@ -54,23 +72,30 @@ namespace InstagramNavegador.Profile.Follow
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow']" },
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow Back']" },
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Enviar mensagem']" },
-                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Message']" }
+                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Message']" },
+                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir']" },
+                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir de volta']" },
+                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow']" },
+                    new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow Back']" }
                 };
                 var r = await Waits.Wait(waits, 10, insta.Driver);
-                if (r == 0 || r == 8 || r == 9 || r == 10 || r == 11 || r == 12 || r == 13)
+                Console.WriteLine(6);
+                if (r == 0 || r == 8 || r == 9 || r == 10 || r == 11 || r == 12 || r == 13 || r == 14 || r == 15 || r == 16 || r == 17)
                 {
+                    Console.WriteLine(7);
                     waits.Clear();
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Seguir de volta']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Seguir']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow Back']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Enviar mensagem']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Message']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//h2[text()=='Esta página não está disponível.']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//h2[text()='Sorry, this page isn't available.']" });
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir de volta']" });
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow']" });
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir']" });
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow Back']" });
                     r = await Waits.Wait(waits, 10, insta.Driver);
-                    if (r < 4)
+                    if (r != -1)
                     {
+                        Console.WriteLine(8);
                         await Task.Delay(1245);
                         var actions = new Actions(insta.Driver);
                         try
@@ -105,6 +130,34 @@ namespace InstagramNavegador.Profile.Follow
                                     await Task.Delay(267);
                                     element3.Click();
                                     break;
+                                case 4:
+                                    var element4 = insta.Driver.FindElement(By.XPath("//div[text()='Seguir']"));
+                                    actions.MoveToElement(element4);
+                                    actions.Perform();
+                                    await Task.Delay(267);
+                                    element4.Click();
+                                    break;
+                                case 5:
+                                    var element5 = insta.Driver.FindElement(By.XPath("//div[text()='Seguir de volta']"));
+                                    actions.MoveToElement(element5);
+                                    actions.Perform();
+                                    await Task.Delay(267);
+                                    element5.Click();
+                                    break;
+                                case 6:
+                                    var element6 = insta.Driver.FindElement(By.XPath("//div[text()='Follow']"));
+                                    actions.MoveToElement(element6);
+                                    actions.Perform();
+                                    await Task.Delay(267);
+                                    element6.Click();
+                                    break;
+                                case 7:
+                                    var element7 = insta.Driver.FindElement(By.XPath("//div[text()='Follow Back']"));
+                                    actions.MoveToElement(element7);
+                                    actions.Perform();
+                                    await Task.Delay(267);
+                                    element7.Click();
+                                    break;
                                 default:
                                     break;
                             }
@@ -113,7 +166,7 @@ namespace InstagramNavegador.Profile.Follow
                         {
                             ret.Err = err;
                         }
-                        await Task.Delay(1245);
+                        await Task.Delay(2894);
                         waits.Clear();
                         waits.Add(new IWait { TYPE = 3, VALUE = "//button//div[text()='Enviar mensagem']" });
                         waits.Add(new IWait { TYPE = 3, VALUE = "//button//div[text()='Message']" });
@@ -154,15 +207,21 @@ namespace InstagramNavegador.Profile.Follow
                     }
                     else
                     {
+                        waits.Clear();
+                        waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Enviar mensagem']" });
+                        waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button//div[text()='Message']" });
+                        waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//h2[text()=='Esta página não está disponível.']" });
+                        waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//h2[text()='Sorry, this page isn't available.']" });
+                        r = await Waits.Wait(waits, 5, insta.Driver);
                         switch (r)
                         {
-                            case 4:
-                            case 5:
+                            case 0:
+                            case 1:
                                 ret.Status = 3;
                                 ret.Response = "Ja seguia o perfil";
                                 break;
-                            case 6:
-                            case 7:
+                            case 2:
+                            case 3:
                                 ret.Status = -1;
                                 ret.Response = "Não foi possivel carregar o perfil";
                                 break;

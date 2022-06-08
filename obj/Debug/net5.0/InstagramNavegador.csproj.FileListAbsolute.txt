@@ -1,0 +1,12 @@
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\bin\Debug\net5.0\InstagramNavegador.deps.json
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\bin\Debug\net5.0\InstagramNavegador.dll
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\bin\Debug\net5.0\ref\InstagramNavegador.dll
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\bin\Debug\net5.0\InstagramNavegador.pdb
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.csproj.AssemblyReference.cache
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.GeneratedMSBuildEditorConfig.editorconfig
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.AssemblyInfoInputs.cache
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.AssemblyInfo.cs
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.csproj.CoreCompileInputs.cache
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.dll
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\ref\InstagramNavegador.dll
+C:\1.Programacao\3.CSharp\2.Bots\Bots\InstagramNavegador\obj\Debug\net5.0\InstagramNavegador.pdb
