@@ -59,7 +59,7 @@ namespace InstagramNavegador.Profile.Login
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//span[text()='Disagree with the decision']" },
                     new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='OK']" }
                 };
-                var r = await Waits.Wait(waits, 15, insta.Driver);
+                var r = await Waits.Wait(waits, 10, insta.Driver);
                 switch (r)
                 {
                     case 0:
@@ -67,7 +67,7 @@ namespace InstagramNavegador.Profile.Login
                         try
                         {
                             await Task.Delay(345);
-                            insta.Driver.FindElement(By.XPath("//button[text()='Ok']")).Click();
+                            insta.Driver.FindElement(By.XPath("//button[text()='OK']")).Click();
                             await Task.Delay(5412);
                         }
                         catch { }
@@ -123,7 +123,7 @@ namespace InstagramNavegador.Profile.Login
                         try
                         {
                             await Task.Delay(345);
-                            insta.Driver.FindElement(By.XPath("//button[text()='Ok']")).Click();
+                            insta.Driver.FindElement(By.XPath("//button[text()='OK']")).Click();
                             await Task.Delay(5412);
                         }
                         catch { }
@@ -159,8 +159,8 @@ namespace InstagramNavegador.Profile.Login
                         ret.Response = "Sucesso ao entrar na conta";
                         return ret;
                     default:
-                        ret.Status = -1;
-                        ret.Response = "Erro ao entrar";
+                        ret.Status = -2;
+                        ret.Response = "Conta com bloqueio de SMS";
                         return ret;
                 }
             }

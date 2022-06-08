@@ -84,13 +84,13 @@ namespace InstagramNavegador.Profile.Follow
                 {
                     Console.WriteLine(7);
                     waits.Clear();
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Seguir']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Seguir de volta']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Seguir']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//button[text()='Follow Back']" });
+                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir de volta']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow']" });
-                    waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Seguir']" });
                     waits.Add(new IWait { TYPE = WaitTypes.TYPE_XPATH, VALUE = "//div[text()='Follow Back']" });
                     r = await Waits.Wait(waits, 10, insta.Driver);
                     if (r != -1)
@@ -108,6 +108,7 @@ namespace InstagramNavegador.Profile.Follow
                                     actions.Perform();
                                     await Task.Delay(267);
                                     element.Click();
+                                    Console.WriteLine(9);
                                     break;
                                 case 1:
                                     var element1 = insta.Driver.FindElement(By.XPath("//button[text()='Seguir de volta']"));
@@ -115,6 +116,7 @@ namespace InstagramNavegador.Profile.Follow
                                     actions.Perform();
                                     await Task.Delay(267);
                                     element1.Click();
+                                    Console.WriteLine(10);
                                     break;
                                 case 2:
                                     var element2 = insta.Driver.FindElement(By.XPath("//button[text()='Follow']"));
@@ -122,6 +124,7 @@ namespace InstagramNavegador.Profile.Follow
                                     actions.Perform();
                                     await Task.Delay(267);
                                     element2.Click();
+                                    Console.WriteLine(11);
                                     break;
                                 case 3:
                                     var element3 = insta.Driver.FindElement(By.XPath("//button[text()='Follow Back']"));
@@ -129,34 +132,43 @@ namespace InstagramNavegador.Profile.Follow
                                     actions.Perform();
                                     await Task.Delay(267);
                                     element3.Click();
+                                    Console.WriteLine(12);
                                     break;
                                 case 4:
-                                    var element4 = insta.Driver.FindElement(By.XPath("//div[text()='Seguir']"));
+                                    var element4 = insta.Driver.FindElement(By.XPath("//button//div[text()='Seguir']"));
+                                    var elementToClick4 = insta.Driver.FindElement(By.XPath("//button//div[text()='Seguir']/ancestor::button[1]"));
                                     actions.MoveToElement(element4);
                                     actions.Perform();
                                     await Task.Delay(267);
-                                    element4.Click();
+                                    elementToClick4.Click();
+                                    Console.WriteLine(13);
                                     break;
                                 case 5:
-                                    var element5 = insta.Driver.FindElement(By.XPath("//div[text()='Seguir de volta']"));
+                                    var element5 = insta.Driver.FindElement(By.XPath("//button//div[text()='Seguir de volta']"));
+                                    var elementToClick5 = insta.Driver.FindElement(By.XPath("//button//div[text()='Seguir de volta']/ancestor::button[1]"));
                                     actions.MoveToElement(element5);
                                     actions.Perform();
                                     await Task.Delay(267);
-                                    element5.Click();
+                                    elementToClick5.Click();
+                                    Console.WriteLine(14);
                                     break;
                                 case 6:
-                                    var element6 = insta.Driver.FindElement(By.XPath("//div[text()='Follow']"));
+                                    var element6 = insta.Driver.FindElement(By.XPath("//button//div[text()='Follow']"));
+                                    var elementToClick6 = insta.Driver.FindElement(By.XPath("//button//div[text()='Follow']/ancestor::button[1]"));
                                     actions.MoveToElement(element6);
                                     actions.Perform();
                                     await Task.Delay(267);
-                                    element6.Click();
+                                    elementToClick6.Click();
+                                    Console.WriteLine(15);
                                     break;
                                 case 7:
-                                    var element7 = insta.Driver.FindElement(By.XPath("//div[text()='Follow Back']"));
+                                    var element7 = insta.Driver.FindElement(By.XPath("//button//div[text()='Follow Back']"));
+                                    var elementToClick7 = insta.Driver.FindElement(By.XPath("//button//div[text()='Follow Back']/ancestor::button[1]"));
                                     actions.MoveToElement(element7);
                                     actions.Perform();
                                     await Task.Delay(267);
-                                    element7.Click();
+                                    elementToClick7.Click();
+                                    Console.WriteLine(16);
                                     break;
                                 default:
                                     break;
@@ -164,6 +176,7 @@ namespace InstagramNavegador.Profile.Follow
                         }
                         catch (Exception err)
                         {
+                            Console.WriteLine(err.Message);
                             ret.Err = err;
                         }
                         await Task.Delay(2894);

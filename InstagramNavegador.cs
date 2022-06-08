@@ -54,6 +54,45 @@ namespace InstagramNavegador
             }
         }
 
+        public InstaNav(string username, string password, string proxyUrl, string proxyPort, string proxyUser, string proxyPass)
+        {
+            try
+            {
+                Account = new(username, password);
+                Options = new();
+                string PROXY = $"http://{proxyUser}:{proxyPass}@{proxyUrl}:{proxyPort}";
+                Proxy proxy = new() {
+                    HttpProxy = PROXY,
+                    SslProxy = PROXY
+                };
+                Options.Proxy = proxy;
+                Options.AcceptInsecureCertificates = true;
+                var directory = Directory.GetCurrentDirectory();
+                var edgeDriverService = FirefoxDriverService.CreateDefaultService(directory);
+                //Options.BinaryLocation = $@"{directory}\chromedriver.exe";
+                Options.AddArguments("--log-level-3");
+                edgeDriverService.HideCommandPromptWindow = true;
+                Options.AddArguments("--incognito");
+                //Options.AddArguments("--headless");
+                Options.AddArguments("--mute-audio");
+                //Options.AddArguments("--disable-gpu");
+                //Options.AddArguments("--disable-gpu-vsync");
+                Options.AddArguments("--window-size=800,600");
+                //Options.AddArguments("--blink-settings=imagesEnabled=false");
+                //Options.AddArguments("--remote-debugging-port=4444");
+                Options.AddArguments($"--user-agent={UaHelper.GetUa()}");
+                Driver = new FirefoxDriver(edgeDriverService, Options);
+                Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(80));
+                JsExecutor = (IJavaScriptExecutor)Driver;
+                Success = true;
+            }
+            catch (Exception err)
+            {
+                Err = err;
+                Success = false;
+            }
+        }
+
         public void CloseNav()
         {
             Driver.Close();
